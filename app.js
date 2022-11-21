@@ -1,15 +1,16 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const morgan = require("morgan");
+// const morgan = require("morgan");
 const { DB_URL } = require("./config.json");
 const goalsRouter = require("./routers/goalsRouter");
 const userRouter = require("./routers/userRouter");
 const { checkToken } = require("./middlewares/checkToken");
+require('dotenv').config();
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use(morgan("dev"));
+// app.use(morgan("dev"));
 
 app.use("/users", userRouter);
 app.use("/goals", goalsRouter);
@@ -27,6 +28,6 @@ app.use((err, req, res, next) => {
 });
 
 mongoose
-  .connect(DB_URL)
+  .connect(process.env.MONGO_URL)
   .then(() => app.listen(3001, () => console.log("server connected")))
   .catch(() => console.log("DB Error"));
