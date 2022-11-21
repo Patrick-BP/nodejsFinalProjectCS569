@@ -6,7 +6,7 @@ const { DB_URL } = require("./config.json");
 const goalsRouter = require("./routers/goalsRouter");
 const userRouter = require("./routers/userRouter");
 const { checkToken } = require("./middlewares/checkToken");
-require('dotenv').config();
+
 const app = express();
 app.use(cors());
 app.use(express.json());
